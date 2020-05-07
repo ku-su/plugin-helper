@@ -1,0 +1,25 @@
+{
+  "name": "kusu-plugin-sdk",
+  "version": "0.0.2",
+  "description": "kusu plugin helper library",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ku-su/plugin-sdk.git"
+  },
+  "keywords": [
+    "kusu",
+    "plugin",
+    "helper",
+    "library"
+  ],
+  "author": "cooshu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ku-su/plugin-sdk/issues"
+  },
+  "homepage": "https://github.com/ku-su/plugin-sdk#readme"
+}
