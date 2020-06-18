@@ -41,7 +41,7 @@ export interface IPluginUpdateArgs {
   props: object, // use define
 }
 
-export default interface IPlugin{
+export interface IPlugin{
   render:(args: IPluginRenderArgs)=>void
   update:(args: IPluginUpdateArgs)=>void
 }
