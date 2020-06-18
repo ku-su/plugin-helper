@@ -27,18 +27,18 @@ export interface IKusuTools {
   isBoundContextData: (contextStr: string | object) => boolean,
   getData: (contextStr: string | object) => any
   getPath: (contextStr: string | object) => any
-  getType: (type) => any
+  getType: (type: IType) => any
 }
 
 export interface IPluginRenderArgs {
   pluginWrapperEl: HTMLElement, // plugin wrapper
   kusuTools: IKusuTools
-  props: object, // use define
+  props: any, // use define
 }
 
 export interface IPluginUpdateArgs {
   kusuTools: IKusuTools
-  props: object, // use define
+  props: any, // use define
 }
 
 export interface IPlugin{
