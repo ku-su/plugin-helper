@@ -26,8 +26,8 @@ class AddScopePlugin {
   // noinspection JSUnusedGlobalSymbols
   apply(compiler) {
     const _this = this;
-    const {plugin} = compiler;
-    plugin('emit', function(compilation, callback) {
+    // noinspection JSUnresolvedFunction
+    compiler.plugin('emit', function(compilation, callback) {
       const { assets } = compilation;
 
       Object.keys(assets).forEach(filename => {
