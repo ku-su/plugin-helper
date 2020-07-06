@@ -9,6 +9,13 @@ interface IVisibleObject {
   condition?: 'eq' | 'neq',  // 字段与字段值之间的条件 eq(等于), neq(不等于)
 }
 
+interface IDataFrom {
+  // 数据来源字段
+  attributeId: string,
+  // 级联下拉框显示标题
+  label: string,
+}
+
 interface IAttribute {
   id: string, // 标识
   label?: string, // 标题
@@ -21,6 +28,7 @@ interface IAttribute {
   // 自定义的类型
   dataType?: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList',
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
+  dataFrom?: IDataFrom
 }
 
 interface IBaseAttribute extends IAttribute {
@@ -70,7 +78,17 @@ interface IValueType {
 
 export type styleInput = 'visible' | IBaseStyle | ISelectAttribute | IStackAttribute;
 
-export type attributesInput = 'title' | 'desc' | 'divider' | 'name' | 'isRequired' | 'animate' | 'disabled' | IBaseAttribute | ISelectAttribute | IStackAttribute;
+export type attributesInput =
+  'title'
+  | 'desc'
+  | 'divider'
+  | 'name'
+  | 'isRequired'
+  | 'animate'
+  | 'disabled'
+  | IBaseAttribute
+  | ISelectAttribute
+  | IStackAttribute;
 
 export interface IPluginConfig {
   pluginName: string, // 插件名称

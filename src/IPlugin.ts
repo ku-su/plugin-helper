@@ -22,8 +22,13 @@ export interface IBindingContextData {
   typeDefines: ITypeDefine[]
 }
 
+export interface IOptions {
+  defaultContent?: string,
+  appendData: IBindingContextData,
+}
+
 export interface IKusuTools {
-  defineContainer: (containerId: string | number, groupName?: string, contextData?: IBindingContextData) => string,
+  defineContainer: (containerId: string | number, groupName?: string, options?: IOptions) => string,
   isBoundContextData: (contextStr: string | object) => boolean,
   getData: (contextStr: string | object) => any
   getPath: (contextStr: string | object) => any
