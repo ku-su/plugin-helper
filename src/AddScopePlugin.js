@@ -1,4 +1,4 @@
-function addIndexScope(pluginName, fileContent) {
+function addIndexScope(libraryId, fileContent) {
   return `
 (function(win) {
   function CooshuScope() {
@@ -7,16 +7,11 @@ function addIndexScope(pluginName, fileContent) {
   CooshuScope.prototype.init = function() {
     var window = this;var module;
     ${fileContent}
-    window.top.cooshuHelper.libraryRegisterFromJsFile(window.library, module, '${pluginName}', 'index', document.currentScript.src);
+    window.top.cooshuHelper.libraryRegisterFromJsFile(window.library, module, '${libraryId}', 'index', document.currentScript.src);
   };
   new CooshuScope().init();
 })(window);`;
 }
-
-const returnNewFileContent = (fileContent, filename) => {
-  const pluginName = filename.split('/')[0];
-  return addIndexScope(pluginName, fileContent);
-};
 
 class AddScopePlugin {
   constructor(config) {
@@ -28,11 +23,29 @@ class AddScopePlugin {
     const _this = this;
     // noinspection JSUnresolvedFunction
     compiler.plugin('emit', function(compilation, callback) {
-      const { assets } = compilation;
+      const { assets, chunks } = compilation;
 
       Object.keys(assets).forEach(filename => {
+        const chunks = chunks.find(a => a.files.find(b => b === filename));
+        const chunkName = chunks.name || chunks.id;
+        const config = _this.config && _this.config[chunkName];
+        if (!config) {
+          throw `cannot file config with "${chunkName}" entry`;
+        }
+
+        const configFileName = filename.replace(/index.js$/, 'config.json');
+        const configContent = JSON.stringify(config);
+        assets[configFileName] = {
+          source() {
+            return configContent;
+          },
+          size() {
+            return configContent.length;
+          },
+        };
+
         const fileContent = assets[filename].source();
-        const formatFileContent = returnNewFileContent(fileContent, filename);
+        const formatFileContent = addIndexScope(config.libraryId, fileContent);
 
         assets[filename] = {
           source() {
@@ -43,21 +56,6 @@ class AddScopePlugin {
           },
         };
       });
-
-      if (_this.config && !_this.proceedConfig) {
-        Object.keys(_this.config).forEach(key => {
-          const content = JSON.stringify(_this.config[key]);
-          assets[key] = {
-            source() {
-              return content;
-            },
-            size() {
-              return content.length;
-            },
-          };
-        });
-        _this.proceedConfig = true;
-      }
 
       callback();
     });
