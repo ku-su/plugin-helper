@@ -13,28 +13,28 @@ function addIndexScope(pluginName, fileContent) {
 })(window);`;
 }
 
-function addConfigScope(pluginName, fileContent) {
-  return `
-(function(window) {
-  var module;
-  ${fileContent}
-  window.top.cooshuHelper.libraryRegisterFromJsFile(window.config, module, '${pluginName}','config', document.currentScript.src);
-})(window);`;
-}
-
 const returnNewFileContent = (fileContent, filename) => {
   const pluginName = filename.split('/')[0];
-  return /index.js$/.test(filename) ? addIndexScope(pluginName, fileContent) : addConfigScope(pluginName, fileContent);
+  return addIndexScope(pluginName, fileContent);
 };
 
 class AddScopePlugin {
+  constructor(config) {
+    this.config = config;
+  }
+
+  // noinspection JSUnusedGlobalSymbols
   apply(compiler) {
-    compiler.plugin('emit', function(compilation, callback) {
-      for (let filename in compilation.assets) {
-        const fileContent = compilation.assets[filename].source();
+    const _this = this;
+    const {plugin} = compiler;
+    plugin('emit', function(compilation, callback) {
+      const { assets } = compilation;
+
+      Object.keys(assets).forEach(filename => {
+        const fileContent = assets[filename].source();
         const formatFileContent = returnNewFileContent(fileContent, filename);
 
-        compilation.assets[filename] = {
+        assets[filename] = {
           source() {
             return formatFileContent;
           },
@@ -42,10 +42,27 @@ class AddScopePlugin {
             return formatFileContent.length;
           },
         };
+      });
+
+      if (_this.config && !_this.proceedConfig) {
+        Object.keys(_this.config).forEach(key => {
+          const content = JSON.stringify(_this.config[key]);
+          assets[key] = {
+            source() {
+              return content;
+            },
+            size() {
+              return content.length;
+            },
+          };
+        });
+        _this.proceedConfig = true;
       }
+
       callback();
     });
   }
 }
 
+// noinspection JSUnresolvedVariable
 module.exports = AddScopePlugin;
