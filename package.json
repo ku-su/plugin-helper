@@ -1,6 +1,6 @@
 {
   "name": "kusu-plugin-sdk",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "kusu plugin helper library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",

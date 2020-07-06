@@ -26,8 +26,8 @@ class AddScopePlugin {
       const { assets, chunks } = compilation;
 
       Object.keys(assets).forEach(filename => {
-        const chunks = chunks.find(a => a.files.find(b => b === filename));
-        const chunkName = chunks.name || chunks.id;
+        const chunk = chunks.find(a => a.files.find(b => b === filename));
+        const chunkName = chunk.name || chunk.id;
         const config = _this.config && _this.config[chunkName];
         if (!config) {
           throw `cannot file config with "${chunkName}" entry`;
