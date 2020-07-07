@@ -24,4 +24,5 @@ export {
   IPluginRenderArgs,
   IPluginUpdateArgs,
   IPlugin,
+  IOptions,
 } from './IPlugin';

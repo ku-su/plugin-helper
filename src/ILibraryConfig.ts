@@ -1,3 +1,5 @@
+import { IDataFromFunction } from './IPlugin';
+
 interface IEventList {
   eventName: string,  // 事件名
   eventDescription: string,  // 事件描述
@@ -6,7 +8,7 @@ interface IEventList {
 interface IVisibleObject {
   relationField: string,  // 关联的字段
   relationValue: string,  // 关联的字段的值
-  condition?: 'eq' | 'neq',  // 字段与字段值之间的条件 eq(等于), neq(不等于)
+  condition?: 'eq' | 'neq',  // 字段与字段值之间的条件 eq(等于), neq(不等于)。默认：eq
 }
 
 interface IDataFrom {
@@ -21,18 +23,51 @@ interface IAttribute {
   label?: string, // 标题
   default?: any,  // 默认值
   placeholder?: string, // 提示文字
-  visible?: IVisibleObject | IVisibleObject[] | (({ data }: { data: object }) => boolean);  // 显示的条件,true为显示,false为隐藏
+  visible?: string | IVisibleObject | IVisibleObject[] | (({ data }: { data: object }) => boolean);  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
   allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true
   seo?: string[] | boolean,
   // 自定义的类型
   dataType?: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList',
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
-  dataFrom?: IDataFrom
+  dataFrom?: string | IDataFrom | IDataFromFunction
 }
 
+type IBaseAttributeType =
+  'title'
+  | 'desc'
+  | 'divider'
+  | 'name'
+  | 'isRequired'
+  | 'animate'
+  | 'disabled'
+
+type IAttributeType =
+  IBaseAttributeType
+  | 'input'
+  | 'number'
+  | 'datePicker'
+  | 'radio'
+  | 'contextData'
+  | 'optionValueInput'
+  | 'tagSelect'
+  | 'checkbox'
+  | 'color'
+  | 'button'
+  | 'lists'
+  | 'iconPicker'
+  | 'images'
+  | 'image'
+  | 'cascaderOne'
+
+export type attributesInput =
+  IBaseAttributeType
+  | IBaseAttribute
+  | ISelectAttribute
+  | IStackAttribute;
+
 interface IBaseAttribute extends IAttribute {
-  type: 'title' | 'desc' | 'divider' | 'name' | 'isRequired' | 'animate' | 'disabled' | 'input' | 'number' | 'datePicker' | 'radio' | 'contextData' | 'optionValueInput' | 'tagSelect'
+  type: IAttributeType
 }
 
 interface IBaseStyle extends IBaseAttribute {
@@ -47,7 +82,51 @@ interface IBaseStyle extends IBaseAttribute {
    *   xxx: 配置项的值
    * }
    */
-  customStyle: string | { [styleAttribute: string]: string }  // 将值赋值给指定的样式名
+  customStyle?: string | { [styleAttribute: string]: string }  // 将值赋值给指定的样式名
+  buildProps?: [
+    'width'
+    | 'height'
+    | 'max-width'
+    | 'min-height'
+    | 'margin'
+    | 'padding'
+    | 'min-width'
+    | 'max-height'
+    | 'float'
+    | 'display'
+    | 'position'
+    | 'top'
+    | 'right'
+    | 'left'
+    | 'bottom'
+    | 'flex-direction'
+    | 'flex-wrap'
+    | 'justify-content'
+    | 'align-items'
+    | 'align-content'
+    | 'order'
+    | 'flex-basis'
+    | 'flex-grow'
+    | 'flex-shrink'
+    | 'align-self'
+    | 'font-family'
+    | 'font-size'
+    | 'font-weight'
+    | 'letter-spacing'
+    | 'color'
+    | 'line-height'
+    | 'text-align'
+    | 'text-shadow'
+    | 'border-radius-c'
+    | 'background-color'
+    | 'border-radius'
+    | 'border'
+    | 'box-shadow'
+    | 'background'
+    | 'transition'
+    | 'perspective'
+    | 'transform'
+  ]
 }
 
 interface IEnums {
@@ -73,22 +152,10 @@ interface IValueType {
   property: string,  // 属性名
   dataType: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList' | IValueType[],  // 类型
   defaultValue: any,  // 默认值
-  id: number  // 唯一值
+  id: number  // 唯一
 }
 
 export type styleInput = 'visible' | IBaseStyle | ISelectAttribute | IStackAttribute;
-
-export type attributesInput =
-  'title'
-  | 'desc'
-  | 'divider'
-  | 'name'
-  | 'isRequired'
-  | 'animate'
-  | 'disabled'
-  | IBaseAttribute
-  | ISelectAttribute
-  | IStackAttribute;
 
 export interface IPluginConfig {
   pluginName: string, // 插件名称
