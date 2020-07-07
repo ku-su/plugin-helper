@@ -184,7 +184,7 @@ export type styleInput =
 export interface IPluginConfig {
   pluginName: string, // 插件名称
   pluginType?: 'container' | 'control', // 插件类型。container(容器)，control(插件)
-  previewImage?: string,  // 插件预览图 database64的字符串
+  icon?: string,  // 插件预览图 database64的字符串
   attributes: Array<attributesInput>, // 属性设置
   styles: Array<styleInput>, // 样式设置
   isFormType?: boolean, // 是否是表单类型插件
