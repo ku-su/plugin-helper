@@ -181,7 +181,7 @@ export interface ILibraryConfig {
   name: string, // 插件库的名称
   version: string,  // 插件库版本
   libraryId: string, //插件库ID
-  pluginConfigs: Array<IPluginConfigs> | IPlugins,  // 插件库里面插件配置
+  pluginConfigs: Array<IPluginConfigs>,  // 插件库里面插件配置
   locale: { // 语言包
     en: { // 英文
       // 以@开头的字符串
