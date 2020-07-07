@@ -1,5 +1,3 @@
-import { IDataFromFunction } from './IPlugin';
-
 interface IEventList {
   eventName: string,  // 事件名
   eventDescription: string,  // 事件描述
@@ -7,7 +5,7 @@ interface IEventList {
 
 interface IVisibleObject {
   relationField: string,  // 关联的字段
-  relationValue: string,  // 关联的字段的值
+  relationValue: string | boolean | number,  // 关联的字段的值
   condition?: 'eq' | 'neq',  // 字段与字段值之间的条件 eq(等于), neq(不等于)。默认：eq
 }
 
@@ -23,14 +21,20 @@ interface IAttribute {
   label?: string, // 标题
   default?: any,  // 默认值
   placeholder?: string, // 提示文字
-  visible?: string | IVisibleObject | IVisibleObject[] | (({ data }: { data: object }) => boolean);  // 显示的条件,true为显示,false为隐藏
+  visible?: string | IVisibleObject | IVisibleObject[];  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
   allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true
   seo?: string[] | boolean,
   // 自定义的类型
   dataType?: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList',
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
-  dataFrom?: string | IDataFrom | IDataFromFunction
+  dataFrom?: string | IDataFrom,
+  dataFilter?: string,
+}
+
+interface IImageAttributeType extends IAttribute {
+  type: 'image',
+  listType: 'text' | 'picture' | 'picture-card'
 }
 
 type IBaseAttributeType =
@@ -41,6 +45,8 @@ type IBaseAttributeType =
   | 'isRequired'
   | 'animate'
   | 'disabled'
+  | 'focus'
+  | 'supportClear'
 
 type IAttributeType =
   IBaseAttributeType
@@ -57,17 +63,25 @@ type IAttributeType =
   | 'lists'
   | 'iconPicker'
   | 'images'
-  | 'image'
+  | 'font'
   | 'cascaderOne'
+
+interface INumberAttribute extends IAttribute {
+  type: 'number',
+  min?: number,
+  max?: number
+}
 
 export type attributesInput =
   IBaseAttributeType
+  | INumberAttribute
+  | IImageAttributeType
   | IBaseAttribute
   | ISelectAttribute
   | IStackAttribute;
 
 interface IBaseAttribute extends IAttribute {
-  type: IAttributeType
+  type?: IAttributeType
 }
 
 interface IBaseStyle extends IBaseAttribute {
@@ -137,11 +151,12 @@ interface IEnums {
 interface ISelectAttribute extends IAttribute {
   enums?: IEnums[] | { [x: string]: string | number | boolean },  // 下拉框选项
   type: 'select', // 类型
+  mode?: 'multiple' | 'tags'
 }
 
 interface IStackAttribute extends IAttribute {
   type: 'stack',  // 可展开折叠面板
-  fields: Array<IBaseAttribute | ISelectAttribute | IStackAttribute>, // 每个折叠面板的配置项
+  fields: Array<attributesInput>, // 每个折叠面板的配置项
   layerField?: string,    // 每一个面板层显示的字段
   uniqueField?: string,   // 唯一项
   itemTemplate?: object,  // 新增项的数据模板
@@ -155,7 +170,16 @@ interface IValueType {
   id: number  // 唯一
 }
 
-export type styleInput = 'visible' | IBaseStyle | ISelectAttribute | IStackAttribute;
+export type styleInput =
+  'visible'
+  | IBaseStyle
+  | ISelectAttribute
+  | INumberAttribute
+  | IStackAttribute
+  | 'labelColSpan'
+  | 'labelColOffset'
+  | 'wrapperColSpan'
+  | 'wrapperColOffset';
 
 export interface IPluginConfig {
   pluginName: string, // 插件名称
