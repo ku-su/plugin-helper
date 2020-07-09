@@ -72,7 +72,7 @@ interface INumberAttribute extends IAttribute {
   max?: number
 }
 
-export type attributesInput =
+export type IAttributesInput =
   IBaseAttributeType
   | INumberAttribute
   | IImageAttributeType
@@ -156,7 +156,7 @@ interface ISelectAttribute extends IAttribute {
 
 interface IStackAttribute extends IAttribute {
   type: 'stack',  // 可展开折叠面板
-  fields: Array<attributesInput>, // 每个折叠面板的配置项
+  fields: Array<IAttributesInput>, // 每个折叠面板的配置项
   layerField?: string,    // 每一个面板层显示的字段
   uniqueField?: string,   // 唯一项
   itemTemplate?: object,  // 新增项的数据模板
@@ -170,7 +170,7 @@ interface IValueType {
   id: number  // 唯一
 }
 
-export type styleInput =
+export type IStyleInput =
   'visible'
   | IBaseStyle
   | ISelectAttribute
@@ -185,8 +185,8 @@ export interface IPluginConfig {
   pluginName: string, // 插件名称
   pluginType?: 'container' | 'control', // 插件类型。container(容器)，control(插件)
   icon?: string,  // 插件预览图 database64的字符串
-  attributes: Array<attributesInput>, // 属性设置
-  styles: Array<styleInput>, // 样式设置
+  attributes: Array<IAttributesInput>, // 属性设置
+  styles: Array<IStyleInput>, // 样式设置
   isFormType?: boolean, // 是否是表单类型插件
   eventLists?: Array<IEventList | string>,  // 事件列表
   valueType?: IValueType[], // 自定义类型

@@ -11,8 +11,8 @@ export { AddScopePlugin };
 export {
   ILibraryConfig,
   IPluginConfig,
-  styleInput,
-  attributesInput,
+  IStyleInput,
+  IAttributesInput,
 } from './ILibraryConfig';
 
 export {
