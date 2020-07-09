@@ -24,7 +24,7 @@ export interface IBindingContextData {
 
 export interface IOptions {
   defaultContent?: string,
-  appendData: IBindingContextData,
+  appendData?: IBindingContextData,
 }
 
 export type getType = (type: IType) => any
