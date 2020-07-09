@@ -51,7 +51,6 @@ type IBaseAttributeType =
 type IAttributeType =
   IBaseAttributeType
   | 'input'
-  | 'number'
   | 'datePicker'
   | 'radio'
   | 'contextData'
@@ -69,7 +68,8 @@ type IAttributeType =
 interface INumberAttribute extends IAttribute {
   type: 'number',
   min?: number,
-  max?: number
+  max?: number,
+  units?: string[],
 }
 
 export type IAttributesInput =
