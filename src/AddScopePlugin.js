@@ -34,7 +34,12 @@ class AddScopePlugin {
         }
 
         const configFileName = filename.replace(/index.js$/, 'config.json');
-        const configContent = JSON.stringify(config);
+        const configContent = JSON.stringify(config, function(key, val) {
+          if (typeof val === 'function') {
+            return val + '';
+          }
+          return val;
+        });
         assets[configFileName] = {
           source() {
             return configContent;
