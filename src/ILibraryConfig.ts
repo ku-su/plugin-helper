@@ -1,3 +1,5 @@
+import { IDataFromFunction } from './IPlugin';
+
 interface IEventList {
   eventName: string,  // 事件名
   eventDescription: string,  // 事件描述
@@ -21,14 +23,14 @@ interface IAttribute {
   label?: string, // 标题
   default?: any,  // 默认值
   placeholder?: string, // 提示文字
-  visible?: string | IVisibleObject | IVisibleObject[];  // 显示的条件,true为显示,false为隐藏
+  visible?: IVisibleObject | IVisibleObject[] | (({ data }: { data: object }) => boolean);  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
   allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true
   seo?: string[] | boolean,
   // 自定义的类型
   dataType?: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList',
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
-  dataFrom?: string | IDataFrom,
+  dataFrom?: IDataFrom | IDataFromFunction,
   dataFilter?: string,
 }
 
