@@ -36,7 +36,7 @@ export interface IPluginHelper {
 export type IDataFromFunction = (originContextData: any[], pluginConfig: object, pluginHelper: IPluginHelper) => any[]
 
 export interface IKusuTools {
-  defineContainer: (containerId: string | number, groupName?: string, options?: IOptions) => string,
+  defineContainer: (containerId: string | number, groupName?: string | null | undefined, options?: IOptions) => string,
   isBoundContextData: (contextStr: string | object) => boolean,
   getData: (contextStr: string | object) => any
   getPath: (contextStr: string | object) => any
