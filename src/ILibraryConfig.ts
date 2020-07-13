@@ -1,4 +1,4 @@
-import { IDataFromFunction } from './IPlugin';
+import { IDataFilter, IDataFromFunction } from './IPlugin';
 
 interface IEventList {
   eventName: string,  // 事件名
@@ -31,7 +31,7 @@ interface IAttribute {
   dataType?: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList',
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
   dataFrom?: IDataFrom | IDataFromFunction,
-  dataFilter?: string,
+  dataFilter?: IDataFilter,
 }
 
 interface IImageAttributeType extends IAttribute {
