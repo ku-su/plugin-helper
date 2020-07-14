@@ -1,13 +1,15 @@
-function addIndexScope(libraryId, fileContent) {
+function addIndexScope(libraryId, fileContent, locale) {
   return `
 (function(win) {
   function CooshuScope() {
     window.top.cooshuHelper.cloneWindow(win, this);
   }
   CooshuScope.prototype.init = function() {
-    var window = this;var module;
+    var window = this;
+    var locale = ${locale}
+    var module;
     ${fileContent}
-    window.top.cooshuHelper.libraryRegisterFromJsFile(window.library, module, '${libraryId}', 'index', document.currentScript.src);
+    window.top.cooshuHelper.libraryRegisterFromJsFile(window.library, locale, '${libraryId}', 'index', document.currentScript.src);
   };
   new CooshuScope().init();
 })(window);`;
@@ -33,6 +35,9 @@ class AddScopePlugin {
           throw `cannot file config with "${chunkName}" entry`;
         }
 
+        const locale = JSON.stringify(config.locale);
+        delete config.locale;
+
         const configFileName = filename.replace(/index.js$/, 'config.json');
         const configContent = JSON.stringify(config, function(key, val) {
           if (typeof val === 'function') {
@@ -50,7 +55,7 @@ class AddScopePlugin {
         };
 
         const fileContent = assets[filename].source();
-        const formatFileContent = addIndexScope(config.libraryId, fileContent);
+        const formatFileContent = addIndexScope(config.libraryId, fileContent, locale);
 
         assets[filename] = {
           source() {
