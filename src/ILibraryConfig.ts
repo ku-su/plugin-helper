@@ -83,10 +83,7 @@ export type IAttributesInput =
   | IStackAttribute;
 
 interface IBaseAttribute extends IAttribute {
-  type?: IAttributeType
-}
-
-interface IBaseStyle extends IBaseAttribute {
+  type?: IAttributeType,
   /**
    * 配置
    * {
@@ -99,6 +96,9 @@ interface IBaseStyle extends IBaseAttribute {
    * }
    */
   customStyle?: string | { [styleAttribute: string]: string }  // 将值赋值给指定的样式名
+}
+
+interface IBaseStyle extends IBaseAttribute {
   buildProps?: [
     'width'
     | 'height'
