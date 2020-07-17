@@ -42,7 +42,8 @@ export interface IKusuTools {
   isBoundContextData: (contextStr: string | object) => boolean,
   getData: (contextStr: string | object) => any
   getPath: (contextStr: string | object) => any
-  getType: getType
+  getType: getType,
+  locale: (value: string, data?: object) => string
 }
 
 export interface IPluginRenderArgs {
