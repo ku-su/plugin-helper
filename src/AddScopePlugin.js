@@ -35,9 +35,8 @@ class AddScopePlugin {
           throw `cannot file config with "${chunkName}" entry`;
         }
 
-        const locale = JSON.stringify(config.locale);
+        const locale = config.locale;
         delete config.locale;
-
         const configFileName = filename.replace(/index.js$/, 'config.json');
         const configContent = JSON.stringify(config, function(key, val) {
           if (typeof val === 'function') {
@@ -45,6 +44,8 @@ class AddScopePlugin {
           }
           return val;
         });
+        config.locale = locale;
+
         assets[configFileName] = {
           source() {
             return configContent;
@@ -55,7 +56,7 @@ class AddScopePlugin {
         };
 
         const fileContent = assets[filename].source();
-        const formatFileContent = addIndexScope(config.libraryId, fileContent, locale);
+        const formatFileContent = addIndexScope(config.libraryId, fileContent, JSON.stringify(locale));
 
         assets[filename] = {
           source() {
