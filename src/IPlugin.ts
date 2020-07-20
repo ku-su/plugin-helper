@@ -44,6 +44,7 @@ export interface IKusuTools {
   getPath: (contextStr: string | object) => any
   getType: getType,
   locale: (value: string, data?: object) => string
+  isEditState: boolean
 }
 
 export interface IPluginRenderArgs {

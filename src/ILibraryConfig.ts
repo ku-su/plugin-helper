@@ -151,7 +151,7 @@ interface IEnums {
 }
 
 interface ISelectAttribute extends IAttribute {
-  enums?: IEnums[] | { [x: string]: string | number | boolean },  // 下拉框选项
+  enums?: IEnums[] | { [x: string]: any },  // 下拉框选项
   type: 'select', // 类型
   mode?: 'multiple' | 'tags'
 }
