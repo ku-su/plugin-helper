@@ -57,7 +57,7 @@ export interface IKusuTools {
   getType: getType,
   locale: (value: string, data?: object) => string
   isEditState: boolean
-  triggerEvent: (eventType: string, eventsConfig?: object) => void
+  triggerEvent: (eventType: string, eventsConfig?: any[]) => void
 }
 
 export interface IPluginRenderArgs {
