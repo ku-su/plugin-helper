@@ -18,13 +18,19 @@ interface IDataFrom {
   label: string,
 }
 
+interface ISetter {
+  style?: string | { [attr: string]: string | undefined | null } | null,
+  props?: string | { [attr: string]: string | undefined | null } | null
+}
+
 interface IAttribute {
-  id: string, // 标识
+  id?: string, // 标识
   label?: string, // 标题
   default?: any,  // 默认值
   placeholder?: string, // 提示文字
   visible?: IVisibleObject | IVisibleObject[] | (({ data }: { data: any }) => boolean);  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
+  visibleRange?: 'self' | 'parent',
   allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true
   seo?: string[] | boolean,
   // 自定义的类型
@@ -32,6 +38,7 @@ interface IAttribute {
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
   dataFrom?: IDataFrom | IDataFromFunction,
   dataFilter?: IDataFilter,
+  setter?: ISetter | null
 }
 
 interface IImageAttributeType extends IAttribute {
@@ -49,6 +56,7 @@ type IBaseAttributeType =
   | 'disabled'
   | 'focus'
   | 'supportClear'
+  | 'visible'
 
 type IAttributeType =
   IBaseAttributeType
@@ -85,65 +93,10 @@ export type IAttributesInput =
 
 interface IBaseAttribute extends IAttribute {
   type?: IAttributeType,
-  /**
-   * 配置
-   * {
-   *    id: xxx
-   *    customStyle: '.color'
-   * }
-   *
-   * #pluginInstanceId .color {
-   *   xxx: 配置项的值
-   * }
-   */
-  customStyle?: string | { [styleAttribute: string]: string }  // 将值赋值给指定的样式名
 }
 
 interface IBaseStyle extends IBaseAttribute {
-  buildProps?: [
-    'width'
-    | 'height'
-    | 'max-width'
-    | 'min-height'
-    | 'margin'
-    | 'padding'
-    | 'min-width'
-    | 'max-height'
-    | 'float'
-    | 'display'
-    | 'position'
-    | 'top'
-    | 'right'
-    | 'left'
-    | 'bottom'
-    | 'flex-direction'
-    | 'flex-wrap'
-    | 'justify-content'
-    | 'align-items'
-    | 'align-content'
-    | 'order'
-    | 'flex-basis'
-    | 'flex-grow'
-    | 'flex-shrink'
-    | 'align-self'
-    | 'font-family'
-    | 'font-size'
-    | 'font-weight'
-    | 'letter-spacing'
-    | 'color'
-    | 'line-height'
-    | 'text-align'
-    | 'text-shadow'
-    | 'border-radius-c'
-    | 'background-color'
-    | 'border-radius'
-    | 'border'
-    | 'box-shadow'
-    | 'background'
-    | 'transition'
-    | 'perspective'
-    | 'transform'
-  ]
+  effect?: 'hide' | 'modify' | 'cover'
 }
 
 interface IEnums {
