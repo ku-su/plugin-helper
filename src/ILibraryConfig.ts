@@ -66,6 +66,7 @@ type IAttributeType =
   | 'images'
   | 'font'
   | 'cascaderOne'
+  | 'event'
 
 interface INumberAttribute extends IAttribute {
   type: 'number',
