@@ -126,12 +126,19 @@ interface IValueType {
   id: number  // 唯一
 }
 
+interface IPanelStyle extends IAttribute {
+  type: 'panel',
+  fields: Array<IStyleInput>, // 每个折叠面板的配置项
+  separator?: string,  // 连接符，面板下每个输入项值使用连接符拼接成最终的值。默认值是 ' '
+}
+
 export type IStyleInput =
   'visible'
   | IBaseStyle
   | ISelectAttribute
   | INumberAttribute
   | IStackAttribute
+  | IPanelStyle
   | 'labelColSpan'
   | 'labelColOffset'
   | 'wrapperColSpan'
