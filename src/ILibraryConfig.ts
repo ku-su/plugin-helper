@@ -38,7 +38,8 @@ interface IAttribute {
   rules?: Array<'required' | 'url' | 'email' | 'number' | 'phone' | 'max'> // 验证规则
   dataFrom?: IDataFrom | IDataFromFunction,
   dataFilter?: IDataFilter,
-  setter?: ISetter | null
+  setter?: ISetter | null,
+  effect?: 'hide' | 'modify' | 'cover'
 }
 
 interface IImageAttributeType extends IAttribute {
@@ -83,6 +84,11 @@ interface INumberAttribute extends IAttribute {
   units?: string[],
 }
 
+interface IPanelStyle extends IAttribute {
+  type: 'panel',
+  fields: Array<IStyleInput>, // 每个折叠面板的配置项
+}
+
 export type IAttributesInput =
   IBaseAttributeType
   | INumberAttribute
@@ -93,10 +99,6 @@ export type IAttributesInput =
 
 interface IBaseAttribute extends IAttribute {
   type?: IAttributeType,
-}
-
-interface IBaseStyle extends IBaseAttribute {
-  effect?: 'hide' | 'modify' | 'cover'
 }
 
 interface IEnums {
@@ -126,15 +128,10 @@ interface IValueType {
   id: number  // 唯一
 }
 
-interface IPanelStyle extends IAttribute {
-  type: 'panel',
-  fields: Array<IStyleInput>, // 每个折叠面板的配置项
-  separator?: string,  // 连接符，面板下每个输入项值使用连接符拼接成最终的值。默认值是 ' '
-}
 
 export type IStyleInput =
   'visible'
-  | IBaseStyle
+  | IBaseAttribute
   | ISelectAttribute
   | INumberAttribute
   | IStackAttribute
