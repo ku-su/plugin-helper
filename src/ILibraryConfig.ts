@@ -87,6 +87,8 @@ interface INumberAttribute extends IAttribute {
 interface IPanelStyle extends IAttribute {
   type: 'panel',
   fields: Array<IStyleInput>, // 每个折叠面板的配置项
+  parse?: (value: any) => any,
+  join?: (list: object) => any,
 }
 
 export type IAttributesInput =
@@ -119,6 +121,8 @@ interface IStackAttribute extends IAttribute {
   uniqueField?: string,   // 唯一项
   itemTemplate?: object,  // 新增项的数据模板
   addButtonText?: string  // 添加按钮的文案
+  join?: (list) => any,
+  parse?: (value: any) => any
 }
 
 interface IValueType {
@@ -127,7 +131,6 @@ interface IValueType {
   defaultValue: any,  // 默认值
   id: number  // 唯一
 }
-
 
 export type IStyleInput =
   'visible'
@@ -141,11 +144,16 @@ export type IStyleInput =
   | 'wrapperColSpan'
   | 'wrapperColOffset';
 
+export interface IAttributeItem {
+  name: string,
+  fields: Array<IAttributesInput>
+}
+
 export interface IPluginConfig {
   pluginName: string, // 插件名称
   pluginType?: 'container' | 'control', // 插件类型。container(容器)，control(插件)
   icon?: string,  // 插件预览图 database64的字符串
-  attributes: Array<IAttributesInput>, // 属性设置
+  attributes: Array<IAttributeItem> | Array<IAttributesInput>, // 属性设置
   styles: Array<IStyleInput>, // 样式设置
   isFormType?: boolean, // 是否是表单类型插件
   eventLists?: Array<IEventList | string>,  // 事件列表
