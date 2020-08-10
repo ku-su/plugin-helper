@@ -47,7 +47,7 @@ interface IImageAttributeType extends IAttribute {
   listType: 'text' | 'picture' | 'picture-card'
 }
 
-type IBaseAttributeType =
+type attributeInput =
   'title'
   | 'desc'
   | 'divider'
@@ -58,6 +58,11 @@ type IBaseAttributeType =
   | 'focus'
   | 'supportClear'
   | 'visible'
+
+type IBaseAttributeType =
+  attributeInput
+  | [attributeInput, string]
+  | { origin: attributeInput, target: string }
 
 type IAttributeType =
   IBaseAttributeType
@@ -132,17 +137,17 @@ interface IValueType {
   id: number  // 唯一
 }
 
+type StyleInput = 'visible' | 'focus' | 'labelColSpan' | 'labelColOffset' | 'wrapperColSpan' | 'wrapperColOffset'
+
 export type IStyleInput =
-  'visible'
+  StyleInput
   | IBaseAttribute
   | ISelectAttribute
   | INumberAttribute
   | IStackAttribute
   | IPanelStyle
-  | 'labelColSpan'
-  | 'labelColOffset'
-  | 'wrapperColSpan'
-  | 'wrapperColOffset';
+  | [StyleInput, string]
+  | { origin: StyleInput, target: string };
 
 export interface IAttributeItem {
   name: string,
