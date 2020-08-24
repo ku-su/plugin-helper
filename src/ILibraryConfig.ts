@@ -20,7 +20,7 @@ interface IDataFrom {
 
 interface ISetter {
   style?: string | { [attr: string]: string | undefined | null } | null,
-  props?: string | { [attr: string]: string | undefined | null } | null
+  props?: string | null
 }
 
 interface IAttribute {
@@ -30,7 +30,6 @@ interface IAttribute {
   placeholder?: string, // 提示文字
   visible?: IVisibleObject | IVisibleObject[] | (({ data }: { data: any }) => boolean);  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
-  visibleRange?: 'self' | 'parent',
   allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true
   seo?: string[] | boolean,
   // 自定义的类型
@@ -70,12 +69,9 @@ type IAttributeType =
   | 'datePicker'
   | 'radio'
   | 'contextData'
-  | 'optionValueInput'
-  | 'tagSelect'
   | 'checkbox'
   | 'color'
   | 'button'
-  | 'lists'
   | 'iconPicker'
   | 'images'
   | 'font'
@@ -125,7 +121,6 @@ interface IStackAttribute extends IAttribute {
   layerField?: string,    // 每一个面板层显示的字段
   uniqueField?: string,   // 唯一项
   itemTemplate?: object,  // 新增项的数据模板
-  addButtonText?: string  // 添加按钮的文案
   join?: (list) => any,
   parse?: (value: any) => any
 }
@@ -151,7 +146,7 @@ export type IStyleInput =
 
 export interface IAttributeItem {
   name: string,
-  fields: Array<IAttributesInput>
+  children: Array<IAttributesInput>
 }
 
 export interface IPluginConfig {
