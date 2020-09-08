@@ -123,7 +123,8 @@ interface IStackAttribute extends IAttribute {
   uniqueField?: string,   // 唯一项
   itemTemplate?: object,  // 新增项的数据模板
   join?: (list) => any,
-  parse?: (value: any) => any
+  parse?: (value: any) => any,
+  addButtonText?: string
 }
 
 interface IValueType {
