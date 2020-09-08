@@ -77,6 +77,7 @@ type IAttributeType =
   | 'font'
   | 'cascaderOne'
   | 'event'
+  | 'fileSelect'
 
 interface INumberAttribute extends IAttribute {
   type: 'number',
