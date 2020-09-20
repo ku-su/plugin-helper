@@ -57,6 +57,7 @@ type attributeInput =
   | 'focus'
   | 'supportClear'
   | 'visible'
+  | 'description'
 
 type IBaseAttributeType =
   attributeInput
