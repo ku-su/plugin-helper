@@ -704,8 +704,15 @@ export type IStyleInput =
   | { origin: StyleInput, target: string };
 
 export interface IAttributeItem {
-  name: string,
+  title: string,
   children: Array<IAttributesInput>
+  expand?: boolean,
+}
+
+export interface IStyleItem {
+  title: string,
+  children: Array<IAttributesInput>
+  expand?: boolean,
 }
 
 export interface IPluginConfig {
@@ -713,7 +720,7 @@ export interface IPluginConfig {
   pluginType?: 'container' | 'control', // 插件类型。container(容器)，control(插件)
   icon?: string,  // 插件预览图 database64的字符串
   attributes: Array<IAttributeItem> | Array<IAttributesInput>, // 属性设置
-  styles: Array<IStyleInput>, // 样式设置
+  styles: Array<IStyleItem> | Array<IStyleInput>, // 样式设置
   isFormType?: boolean, // 是否是表单类型插件
   eventLists?: Array<IEventList | string>,  // 事件列表
   valueType?: IValueType[], // 自定义类型
