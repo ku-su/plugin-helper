@@ -28,7 +28,7 @@ interface IAttribute {
   label?: string, // 标题
   default?: any,  // 默认值
   placeholder?: string, // 提示文字
-  visible?: IVisibleObject | IVisibleObject[] | (({ data }: { data: any }) => boolean);  // 显示的条件,true为显示,false为隐藏
+  visible?: IVisibleObject | IVisibleObject[] | ((formData: any) => boolean);  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
   allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true
   seo?: string[] | boolean,
