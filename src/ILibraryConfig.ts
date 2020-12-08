@@ -711,7 +711,7 @@ export interface IAttributeItem {
 
 export interface IStyleItem {
   title: string,
-  children: Array<IAttributesInput>
+  children: Array<IStyleInput>
   expand?: boolean,
 }
 
