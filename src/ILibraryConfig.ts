@@ -1,6 +1,6 @@
 import { IDataFilter, IDataFromFunction } from './IPlugin';
 
-interface IEventList {
+export interface IEventInfo {
   eventName: string,  // 事件名
   eventDescription: string,  // 事件描述
 }
@@ -722,7 +722,7 @@ export interface IPluginConfig {
   attributes: Array<IAttributeItem> | Array<IAttributesInput>, // 属性设置
   styles: Array<IStyleItem> | Array<IStyleInput>, // 样式设置
   isFormType?: boolean, // 是否是表单类型插件
-  eventLists?: Array<IEventList | string>,  // 事件列表
+  eventLists?: Array<IEventInfo | string>,  // 事件列表
   valueType?: IValueType[], // 自定义类型
 }
 
