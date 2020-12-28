@@ -8,21 +8,6 @@ declare global {
 
 export { AddScopePlugin };
 
-export {
-  ILibraryConfig,
-  IPluginConfig,
-  IStyleInput,
-  IAttributesInput,
-} from './ILibraryConfig';
+export * from './ILibraryConfig';
 
-export {
-  IType,
-  IMember,
-  ITypeDefine,
-  IBindingContextData,
-  IKusuTools,
-  IPluginRenderArgs,
-  IPluginUpdateArgs,
-  IPlugin,
-  IOptions,
-} from './IPlugin';
+export * from './IPlugin';

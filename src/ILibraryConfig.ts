@@ -5,25 +5,25 @@ export interface IEventInfo {
   eventDescription: string,  // 事件描述
 }
 
-interface IVisibleObject {
+export interface IVisibleObject {
   relationField: string,  // 关联的字段
   relationValue: string | boolean | number,  // 关联的字段的值
   condition?: 'eq' | 'neq',  // 字段与字段值之间的条件 eq(等于), neq(不等于)。默认：eq
 }
 
-interface IDataFrom {
+export interface IDataFrom {
   // 数据来源字段
   attributeId: string,
   // 级联下拉框显示标题
   label: string,
 }
 
-interface ISetter {
+export interface ISetter {
   style?: string | { [attr: string]: string | undefined | null } | null,
   props?: string | null
 }
 
-interface IAttribute {
+export interface IAttribute {
   id?: string, // 标识
   label?: string, // 标题
   default?: any,  // 默认值
@@ -41,12 +41,12 @@ interface IAttribute {
   effect?: 'hide' | 'modify' | 'cover'
 }
 
-interface IImageAttributeType extends IAttribute {
+export interface IImageAttributeType extends IAttribute {
   type: 'image',
   listType: 'text' | 'picture' | 'picture-card'
 }
 
-type attributeInput =
+export type attributeInput =
   'title'
   | 'desc'
   | 'divider'
@@ -59,12 +59,12 @@ type attributeInput =
   | 'visible'
   | 'description'
 
-type IBaseAttributeType =
+export type IBaseAttributeType =
   attributeInput
   | [attributeInput, string]
   | { origin: attributeInput, target: string }
 
-type IAttributeType =
+export type IAttributeType =
   IBaseAttributeType
   | 'input'
   | 'datePicker'
@@ -80,17 +80,17 @@ type IAttributeType =
   | 'event'
   | 'fileSelect'
 
-interface IOption {
+export interface IOption {
   label: string,
   value: any
 }
 
-interface IIconSelect {
+export interface IIconSelect {
   label: string,
   enums: Array<string | IOption>
 }
 
-interface INumberAttribute extends IAttribute {
+export interface INumberAttribute extends IAttribute {
   type: 'number',
   min?: number,
   max?: number,
@@ -99,7 +99,7 @@ interface INumberAttribute extends IAttribute {
   unitsWidth?: string
 }
 
-interface IPanelStyle extends IAttribute {
+export interface IPanelStyle extends IAttribute {
   type: 'panel',
   fields: Array<IStyleInput>, // 每个折叠面板的配置项
   parse?: (value: any) => any,
@@ -114,22 +114,22 @@ export type IAttributesInput =
   | ISelectAttribute
   | IStackAttribute;
 
-interface IBaseAttribute extends IAttribute {
+export interface IBaseAttribute extends IAttribute {
   type?: IAttributeType,
 }
 
-interface IEnums {
+export interface IEnums {
   label: string,  // 选项显示的文字
   value: string | number | boolean  //  选项背后的值
 }
 
-interface ISelectAttribute extends IAttribute {
+export interface ISelectAttribute extends IAttribute {
   enums?: IEnums[] | { [x: string]: any },  // 下拉框选项
   type: 'select', // 类型
   mode?: 'multiple' | 'tags'
 }
 
-interface IStackAttribute extends IAttribute {
+export interface IStackAttribute extends IAttribute {
   type: 'stack',  // 可展开折叠面板
   fields: Array<IAttributesInput>, // 每个折叠面板的配置项
   layerField?: string,    // 每一个面板层显示的字段
@@ -140,16 +140,16 @@ interface IStackAttribute extends IAttribute {
   addButtonText?: string
 }
 
-interface IValueType {
+export interface IValueType {
   property: string,  // 属性名
   dataType: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList' | IValueType[],  // 类型
   defaultValue: any,  // 默认值
   id: number  // 唯一
 }
 
-type StyleInput = 'visible' | 'focus' | 'labelColSpan' | 'labelColOffset' | 'wrapperColSpan' | 'wrapperColOffset'
+export type StyleInput = 'visible' | 'focus' | 'labelColSpan' | 'labelColOffset' | 'wrapperColSpan' | 'wrapperColOffset'
 
-type IStyleNames =
+export type IStyleNames =
   'padding'
   | 'margin'
   | 'textEmphasisStyle'
@@ -720,17 +720,17 @@ export interface IPluginConfig {
   pluginType?: 'container' | 'control', // 插件类型。container(容器)，control(插件)
   icon?: string,  // 插件预览图 database64的字符串
   attributes: Array<IAttributeItem> | Array<IAttributesInput>, // 属性设置
-  styles: Array<IStyleItem> | Array<IStyleInput>, // 样式设置
+  styles: Array<IStyleItem | IStyleInput>, // 样式设置
   isFormType?: boolean, // 是否是表单类型插件
   eventLists?: Array<IEventInfo | string>,  // 事件列表
   valueType?: IValueType[], // 自定义类型
 }
 
-interface IPlugins {
+export interface IPlugins {
   [x: string]: IPluginConfig  // 插件pluginId：插件配置
 }
 
-interface IPluginConfigs {
+export interface IPluginConfigs {
   name: string, // 分组名
   children: IPlugins  // 分组下的插件列表
 }
