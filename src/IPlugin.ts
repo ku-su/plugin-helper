@@ -19,12 +19,12 @@ export interface ITypeDefine {
 export interface IBindingContextData {
   data: any,
   dataType: number,
-  typeDefines: ITypeDefine[]
+  typeDefines: ITypeDefine
 }
 
 export interface IOptions {
   defaultContent?: string,
-  appendData?: IBindingContextData,
+  appendData?: IBindingContextData[],
   // 是否自动渲染，默认为true
   autoRenderContainer?: boolean,
   // 容器
