@@ -49,9 +49,14 @@ export interface IDefineContainerReturn {
   renderContainer?: () => void,
 }
 
+export enum Panels {
+  style,
+  attribute
+}
+
 export interface IKusuTools {
   defineContainer: (containerId: string | number, groupName?: string | null | undefined, options?: IOptions) => IDefineContainerReturn,
-  isBoundContextData: (contextStr: string | object) => boolean,
+  isBoundContextData: (contextStr: string, panel: Panels) => boolean,
   getData: (contextStr: string | object) => any
   getPath: (contextStr: string | object) => any
   getType: getType,
