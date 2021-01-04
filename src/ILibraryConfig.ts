@@ -30,7 +30,7 @@ export interface IAttribute {
   placeholder?: string, // 提示文字
   visible?: IVisibleObject | IVisibleObject[] | ((formData: any) => boolean);  // 显示的条件,true为显示,false为隐藏
   visibleConditionRelation?: 'and' | 'or',  // 当visible为数组时，条件之间的关系，and(和)，or(或)
-  allowDataSourceBind?: boolean | 'raw',  // 是否可以选择上下文数据, 默认值时true, true:插件里面拿到的是真实的数据，raw: 插件里面拿到的是上下文输入项原始数据
+  allowDataSourceBind?: boolean,  // 是否可以选择上下文数据, 默认值时true, true:插件里面拿到的是真实的数据
   seo?: string[] | boolean,
   // 自定义的类型
   dataType?: 'text' | 'int' | 'decimal' | 'bool' | 'datetime' | 'date' | 'time' | 'dbRef' | 'textList' | 'intList' | 'decimalLis' | 'boolList' | 'datetimeList' | 'dateList' | 'timeList' | 'dbRefList',
