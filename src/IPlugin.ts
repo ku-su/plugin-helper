@@ -54,12 +54,14 @@ export enum Panels {
   attribute
 }
 
+export type IFieldPath = Array<string | number>
+
 export interface IKusuTools {
   defineContainer: (containerId: string | number, groupName?: string | null | undefined, options?: IOptions) => IDefineContainerReturn,
-  isBoundContextData: (contextStr: string, panel: Panels) => boolean,
-  getData: (contextStr: string | object) => any
-  getPath: (contextStr: string | object) => any
-  getType: getType,
+  isBoundContextData: (fieldPath: IFieldPath) => boolean,
+  getData: (fieldPath: IFieldPath) => any
+  getPath: (fieldPath: IFieldPath) => any
+  getType: (fieldPath: IFieldPath) => any,
   locale: (value: string, data?: object) => string
   isEditState: boolean
   triggerEvent: (eventType: string, eventsConfig?: any[]) => void
