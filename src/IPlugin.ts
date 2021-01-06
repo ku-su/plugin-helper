@@ -7,11 +7,11 @@ export interface IMember {
   id: number,
   name: string,
   alias: string,
-  dataType: string | IType,
+  dataType: string | IType | ITypeDefine,
 }
 
 export interface ITypeDefine {
-  id: number,
+  name?: string
   alias: string,
   members: IMember[]
 }
@@ -19,7 +19,7 @@ export interface ITypeDefine {
 export interface IBindingContextData {
   data: any,
   dataType: number,
-  typeDefines: ITypeDefine
+  typeDefines: ITypeDefine[]
 }
 
 export interface IOptions {
@@ -54,14 +54,12 @@ export enum Panels {
   attribute
 }
 
-export type IFieldPath = Array<string | number>
-
 export interface IKusuTools {
   defineContainer: (containerId: string | number, groupName?: string | null | undefined, options?: IOptions) => IDefineContainerReturn,
-  isBoundContextData: (fieldPath: IFieldPath) => boolean,
-  getData: (fieldPath: IFieldPath) => any
-  getPath: (fieldPath: IFieldPath) => any
-  getType: (fieldPath: IFieldPath) => any,
+  isBoundContextData: (fieldPath: string) => boolean,
+  isBoundContextDataByOrigin: (fieldPath: string) => boolean,
+  getPath: (fieldPath: string) => any
+  getType: (fieldPath: string) => any,
   locale: (value: string, data?: object) => string
   isEditState: boolean
   triggerEvent: (eventType: string, eventsConfig?: any[]) => void
